@@ -256,7 +256,7 @@ go-module_set_globals
 DESCRIPTION="Multi-container orchestration for Docker"
 HOMEPAGE="https://github.com/docker/compose"
 SRC_URI="https://github.com/docker/compose/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
-           ${EGO_SUM_SRC_URI}"
+    ${EGO_SUM_SRC_URI}"
 
 RESTRICT="mirror"
 LICENSE="Apache-2.0"
@@ -265,7 +265,7 @@ KEYWORDS="~amd64"
 IUSE="doc"
 
 RDEPEND="app-containers/docker
-	app-containers/docker-cli
+    app-containers/docker-cli
 "
 
 DOCS=( README.md MAINTAINERS CONTRIBUTING.md NOTICE LICENSE )
@@ -274,15 +274,17 @@ HTML_DOCS="docs/reference/"
 S="${WORKDIR}/compose-${PV}"
 
 src_compile() {
-	emake GIT_TAG=v${PV} -f builder.Makefile compose-plugin || die
-	use doc && { emake GIT_TAG=v${PV} -f builder.Makefile yamldocs || die; }
+    emake GIT_TAG=v${PV} -f builder.Makefile compose-plugin || die
+    use doc && { emake GIT_TAG=v${PV} -f builder.Makefile yamldocs || die; }
 }
 
 src_install() {
-	dobin usr/local/lib/docker/cli-plugins/docker-compose
-	use doc && einstalldocs
+    dodir usr/local/lib/docker/cli-plugins
+    exeinto usr/local/lib/docker/cli-plugins
+    doexe bin/docker-compose
+    use doc && einstalldocs
 }
 
 src_test() {
-	emake GIT_TAG=v${PV} -f builder.Makefile test
+    emake GIT_TAG=v${PV} -f builder.Makefile test
 }
