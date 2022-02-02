@@ -279,8 +279,8 @@ src_compile() {
 }
 
 src_install() {
-    dodir usr/local/lib/docker/cli-plugins
-    exeinto usr/local/lib/docker/cli-plugins
+    dodir usr/lib/docker/cli-plugins
+    exeinto usr/lib/docker/cli-plugins
     doexe bin/docker-compose
     use doc && einstalldocs
 }
