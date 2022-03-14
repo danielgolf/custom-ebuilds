@@ -1,0 +1,3 @@
+amd64   default/linux/amd64/17.1/no-multilib/desktop            dev
+amd64   default/linux/amd64/17.1/no-multilib/usr-merge          dev
+amd64   default/linux/amd64/17.1/no-multilib/usr-merge/desktop  dev
