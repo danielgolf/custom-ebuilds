@@ -1,4 +1,4 @@
-# Copyright 2020-2022 Gentoo Authors
+# Copyright 2020-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -9,7 +9,7 @@ MY_PN="${PN/-bin}"
 
 DESCRIPTION="A glossy Matrix collaboration client for desktop (binary package)"
 HOMEPAGE="https://element.io"
-SRC_URI="https://packages.riot.im/debian/pool/main/e/element-desktop/${MY_PN}_${PV}_amd64.deb"
+SRC_URI="https://packages.element.io/debian/pool/main/e/element-desktop/${MY_PN}_${PV}_amd64.deb"
 S="${WORKDIR}"
 
 LICENSE="Apache-2.0"
@@ -17,11 +17,13 @@ SLOT="0"
 KEYWORDS="~amd64"
 RESTRICT="splitdebug"
 
-RDEPEND="app-accessibility/at-spi2-atk:2
-	app-accessibility/at-spi2-core:2
+RDEPEND="
+	|| (
+		>=app-accessibility/at-spi2-core-2.46.0:2
+		( app-accessibility/at-spi2-atk dev-libs/atk )
+	)
 	app-crypt/libsecret
 	dev-db/sqlcipher
-	dev-libs/atk
 	dev-libs/expat
 	dev-libs/glib:2
 	dev-libs/nettle
@@ -52,7 +54,9 @@ QA_PREBUILT="opt/Element/chrome-sandbox
 	opt/Element/libGLESv2.so
 	opt/Element/libffmpeg.so
 	opt/Element/libvk_swiftshader.so
-	opt/Element/libvulkan.so.1"
+	opt/Element/libvulkan.so.1
+	opt/Element/resources/app.asar.unpacked/node_modules/matrix-seshat/index.node
+	opt/Element/resources/app.asar.unpacked/node_modules/keytar/build/Release/keytar.node"
 
 src_prepare() {
 	default
